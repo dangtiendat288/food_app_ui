@@ -19,7 +19,7 @@ import { useFonts } from "expo-font";
 
 Feather.loadFont();
 
-export default Home = () => {
+export default Home = ({ navigation }) => {
   const renderCategoriesItem = ({ item }) => (
     <View
       style={[
@@ -111,57 +111,62 @@ export default Home = () => {
           <Text style={styles.categoriesTitle}>Popular</Text>
           <View style={styles.popularListWrapper}>
             {popularData.map((item) => (
-              <View key={item.id} style={styles.popularItemWrapper}>
-                <View style={styles.popularLeftTextWrapper}>
-                  <View>
-                    <View style={styles.popularFirstTitleWrapper}>
-                      <MaterialCommunityIcons
-                        name="crown"
-                        size={12}
-                        color={colors.primary}
-                      />
-                      <Text style={styles.popularFirstTitle}>
-                        top of the week
-                      </Text>
-                    </View>
-                    <Text style={styles.dishTitle}>{item.title}</Text>
-                    <Text
-                      style={styles.weightTitle}
-                    >{`Weight ${item.weight}`}</Text>
-                  </View>
-                  <View style={styles.popularIconWrapper}>
-                    <TouchableOpacity style={styles.plusButton}>
-                      <Text>+</Text>
-                    </TouchableOpacity>
-                    <View style={styles.ratingTitle}>
-                      <MaterialCommunityIcons
-                        name="star"
-                        size={8}
-                        style={styles.ratingIcon}
-                      />
+              <TouchableOpacity
+                key={item.id}
+                onPress={() => navigation.navigate("Details", { item: item })}
+              >
+                <View style={styles.popularItemWrapper}>
+                  <View style={styles.popularLeftTextWrapper}>
+                    <View>
+                      <View style={styles.popularFirstTitleWrapper}>
+                        <MaterialCommunityIcons
+                          name="crown"
+                          size={12}
+                          color={colors.primary}
+                        />
+                        <Text style={styles.popularFirstTitle}>
+                          top of the week
+                        </Text>
+                      </View>
+                      <Text style={styles.dishTitle}>{item.title}</Text>
                       <Text
-                        style={{
-                          fontSize: 12,
-                          fontFamily: "montserrat-semibold",
-                        }}
-                      >
-                        {item.rating}
-                      </Text>
+                        style={styles.weightTitle}
+                      >{`Weight ${item.weight}`}</Text>
+                    </View>
+                    <View style={styles.popularIconWrapper}>
+                      <TouchableOpacity style={styles.plusButton}>
+                        <Text>+</Text>
+                      </TouchableOpacity>
+                      <View style={styles.ratingTitle}>
+                        <MaterialCommunityIcons
+                          name="star"
+                          size={8}
+                          style={styles.ratingIcon}
+                        />
+                        <Text
+                          style={{
+                            fontSize: 12,
+                            fontFamily: "montserrat-semibold",
+                          }}
+                        >
+                          {item.rating}
+                        </Text>
+                      </View>
                     </View>
                   </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      overflow: "hidden",
+                      flex: 1,
+                      justifyContent: "flex-end",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Image source={item.image} style={styles.popularImage} />
+                  </View>
                 </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    overflow: "hidden",
-                    flex: 1,
-                    justifyContent: "flex-end",
-                    alignItems: "center",
-                  }}
-                >
-                  <Image source={item.image} style={styles.popularImage} />
-                </View>
-              </View>
+              </TouchableOpacity>
             ))}
           </View>
         </View>
